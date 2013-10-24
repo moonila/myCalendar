@@ -1,0 +1,52 @@
+<resources>
+
+    <string name="app_name">Mon application féminine</string>
+    <string name="newDate">Saisir une nouvelle date</string>
+    <string name="back">Retour</string>
+    <string name="cancel">Annuler</string>
+    <string name="lastDate">Dernières : </string>
+    <string name="probablyDate">Date possible des prochaines : </string>
+    <string name="daysAverage">Moyenne en jours entre : </string>
+    <string name="newDateButton">Nouvelle Saisie</string>
+    <string name="viewGraphButton">Voir Graphique</string>
+    <string name="deleteActionButton">Supprimer</string>
+    <string name="newDateLabel">Nouvelle Date : </string>
+    <string name="validateButton">Valider</string>
+    <string name="graphs">Graphiques</string>
+    <string name="graphsYearActual">Suivi Sur l\'année en cours</string>
+    <string name="graphsLegendary">Vue Mensuelle</string>
+    <string name="graphsYLabel">Jours</string>
+    <string name="graphsXLabel">Mois</string>
+
+    <string-array name="all_months">
+        <item>Jan</item>
+        <item>Fev</item>
+        <item>Mar</item>
+        <item>Avr</item>
+        <item>Mai</item>
+        <item>Jun</item>
+        <item>Jui</item>
+        <item>Aou</item>
+        <item>Sep</item>
+        <item>Oct</item>
+        <item>Nov</item>
+        <item>Dec</item>
+    </string-array>
+
+    <string name="dialogMessage">la date doit être du type jj/MM/aaaa</string>
+    <string name="dialogTitle">Erreur</string>
+    <string name="dialogOk">OK</string>
+    <string name="dialogCancel">Annuller</string>
+    <string name="deleteAll">Supprimer toutes les dates</string>
+    <string name="deleteByDate">Supprimer par année</string>
+    <string name="deleteOne">Supprimer une date spécifique</string>
+    
+    <string name="date_picker_dialog_title">Set date</string>
+    <string name="date_picker_increment_day_button">Increase day</string>
+    <string name="date_picker_increment_month_button">Increase month</string>
+    <string name="date_picker_increment_year_button">Increase year</string>
+    <string name="date_picker_decrement_day_button">Decrease day</string>
+    <string name="date_picker_decrement_month_button">Decrease month</string>
+    <string name="date_picker_decrement_year_button">Decrease year</string>
+
+</resources>

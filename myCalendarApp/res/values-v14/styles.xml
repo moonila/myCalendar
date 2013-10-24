@@ -1,0 +1,26 @@
+<resources>
+
+    <!--
+        Base application theme for API 14+. This theme completely replaces
+        AppBaseTheme from BOTH res/values/styles.xml and
+        res/values-v11/styles.xml on API 14+ devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <item name="selectableItemBackground">?android:attr/selectableItemBackground</item>
+<!--                 <item name="android:divider">@color/magenta</item> -->
+<!--         <item name="android:textColor">@color/magenta</item> -->
+
+        <!-- API 14 theme customizations can go here. -->
+<!--         <item name="numberPickerStyle">@style/MyApp.NumberPicker</item> -->
+    </style>
+
+<!--     <style name="MyApp.NumberPicker" parent="Widget.Holo.NumberPicker"> -->
+<!--         <item name="android:selectionDivider">@color/red</item> -->
+<!--     </style> -->
+
+<!--     <style name="testo" parent="@android:style/Widget.DeviceDefault.DatePicker"> -->
+<!--         <item name="android:textColor">@color/red</item> -->
+<!--     </style> -->
+
+    
+</resources>

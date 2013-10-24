@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_new_date_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/backButton"
+        layout="@layout/component_button_back" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/newDateLabel" />
+
+        <!-- <EditText -->
+        <!-- android:id="@+id/newAddForm" -->
+        <!-- android:layout_width="0dp" -->
+        <!-- android:layout_height="wrap_content" -->
+        <!-- android:layout_marginLeft="5dp" -->
+        <!-- android:layout_marginRight="80dp" -->
+        <!-- android:layout_weight="0.01" -->
+        <!-- android:background="@color/grey_light" -->
+        <!-- android:ems="10" -->
+        <!-- android:inputType="text" -->
+        <!-- android:maxLength="10" /> -->
+
+        <Button
+            android:id="@+id/addDate"
+            style="@style/ButtonStyle"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button_behavior"
+            android:text="@string/validateButton" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/validateButton"
+        layout="@layout/component_button_validate" />
+
+</LinearLayout>

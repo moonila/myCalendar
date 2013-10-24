@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/delete_date_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/backButton"
+        layout="@layout/component_button_back" />
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@+id/deleteAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/deleteAll" />
+
+        <RadioButton
+            android:id="@+id/deleteByDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/deleteByDate" />
+
+        <RelativeLayout
+            android:id="@+id/deleteByDateLayout"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <Spinner
+                android:id="@+id/spinnerSelectedYear"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="true" />
+        </RelativeLayout>
+
+        <RadioButton
+            android:id="@+id/deleteOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/deleteOne" />
+
+        <TextView
+            android:id="@+id/deleteOneText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/deleteOne"
+            android:visibility="gone" />
+    </RadioGroup>
+
+    <include
+        android:id="@+id/validateButton"
+        layout="@layout/component_button_validate" />
+
+</LinearLayout>

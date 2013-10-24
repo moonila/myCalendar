@@ -1,0 +1,74 @@
+<!--
+  Copyright 2011 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<resources>
+
+    <attr name="selectableItemBackground" format="reference" />
+    <attr name="numberPickerStyle" format="reference" />
+    <attr name="numberPickerUpButtonStyle" format="reference" />
+    <attr name="numberPickerDownButtonStyle" format="reference" />
+    <attr name="numberPickerInputTextStyle" format="reference" />
+    <attr name="numberPickerPreferenceStyle" format="reference" />
+    <attr name="datePickerStyle" format="reference" />
+    <attr name="timePickerStyle" format="reference" />
+
+    <!-- <declare-styleable name="AppTheme"> -->
+
+
+    <!-- </declare-styleable> -->
+    <!-- <declare-styleable name="SpinnerColor"> -->
+    <!-- <attr name="gridView" format="reference" /> -->
+    <!-- </declare-styleable> -->
+    <!-- <declare-styleable name="Divider"> -->
+    <!-- <attr name="android:orientation" /> -->
+    <!-- </declare-styleable> -->
+    <!-- <declare-styleable name="Theme"> -->
+    <!-- <attr name="android:disabledAlpha" /> -->
+    <!-- <attr name="listDivider" format="reference" /> -->
+    <!-- </declare-styleable> -->
+
+    <declare-styleable name="DatePicker">
+        <attr name="startYear" format="integer" />
+        <attr name="endYear" format="integer" />
+        <attr name="spinnersShown" format="boolean" />
+        <attr name="calendarViewShown" format="boolean" />
+        <attr name="minDate" format="string|reference" />
+        <attr name="maxDate" format="string|reference" />
+        <attr name="internalLayout" format="reference" />
+        <attr name="forceShownState" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="NumberPicker">
+		<attr name="solidColor" format="color|reference" />
+		<attr name="flingable" format="boolean" />
+		<attr name="virtualButtonPressedDrawable" format="reference" />
+		<attr name="selectionDivider" format="reference" />
+		<attr name="selectionDividerHeight" format="dimension" />
+		<attr name="selectionDividersDistance" format="dimension" />
+		<attr name="android:minHeight" />
+		<attr name="android:maxHeight" />
+		<attr name="android:minWidth" />
+		<attr name="android:maxWidth" />
+		<attr name="android:orientation" />
+		<attr name="android:fadingEdgeLength" />
+		<attr name="android:layout" />
+	</declare-styleable>
+    <declare-styleable name="NumberPickerPreference">
+		<attr name="min" format="integer" />
+		<attr name="max" format="integer" />
+		<attr name="wrapSelectorWheel" format="boolean" />
+	</declare-styleable>
+       
+</resources>

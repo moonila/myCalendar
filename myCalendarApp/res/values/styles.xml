@@ -1,0 +1,74 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:local="http://schemas.android.com/apk/res/org.moonila.mycalendar.app">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="selectableItemBackground">@drawable/custom_item_background</item>
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:background">@color/blue</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- <style name="testo" parent="@android:style/Widget.DeviceDefault.DatePicker"> -->
+    <!-- <item name="android:textColor">#AEEE00</item> -->
+    <!-- </style> -->
+    <!-- <style name="datePickerThem"> -->
+    <!-- <item name="android:textColor">#AEEE00</item> -->
+    <!-- </style> -->
+
+    <style name="MyHolo" parent="android:Theme.Holo.NoActionBar">
+        <item name="android:textColor">#AEEE00</item>
+        <item name="datePickerStyle">@style/Custom.DatePicker</item>
+        
+        <item name="numberPickerInputTextStyle">@style/Custom.NumberPickerInputText</item>
+        <item name="numberPickerStyle">@style/Custom.NumberPicker</item>
+        <!-- <item name="android:dateTextAppearance">#AEEE00</item> -->
+    </style>
+     <style name="Custom"/>
+    <style name="Custom.DatePicker">
+        <item name="endYear">2100</item>
+        <item name="forceShownState">false</item>
+        <item name="internalLayout">@layout/widget_date_picker</item>
+        <item name="spinnersShown">true</item>
+        <item name="startYear">1900</item>
+    </style>
+     <style name="Custom.NumberPicker">
+        <item name="android:fadingEdge">vertical</item>
+        <item name="android:fadingEdgeLength">50dip</item>
+        <item name="android:layout">@layout/widget_number_picker</item>
+        <item name="android:maxHeight">180dip</item>
+        <item name="android:minWidth">64dip</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:solidColor">@android:color/transparent</item>
+        <item name="selectionDivider">@drawable/numberpicker_selection_divider_custom</item>
+        <item name="selectionDividerHeight">2dip</item>
+        <item name="selectionDividersDistance">48dip</item>
+        <item name="virtualButtonPressedDrawable">?selectableItemBackground</item>
+    </style>
+        <style name="Custom.NumberPickerInputText">
+        <item name="android:background">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingBottom">13sp</item>
+        <item name="android:paddingLeft">2sp</item>
+        <item name="android:paddingRight">2sp</item>
+        <item name="android:paddingTop">13sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+</resources>

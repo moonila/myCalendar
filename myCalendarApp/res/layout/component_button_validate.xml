@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="240dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="20dp"
+    android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/validate"
+        style="@style/ButtonStyle"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_behavior"
+        android:text="@string/validateButton" />
+
+</RelativeLayout>
