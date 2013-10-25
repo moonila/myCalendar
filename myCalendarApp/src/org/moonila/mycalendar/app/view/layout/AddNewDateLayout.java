@@ -14,12 +14,15 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 public class AddNewDateLayout {
 
@@ -31,7 +34,7 @@ public class AddNewDateLayout {
 
     private static String dateValue;
 
-    private static Button editDate;
+    private static TextView editDate;
 
     private static class AddNewDateLayoutHolder {
         private final static AddNewDateLayout instance = new AddNewDateLayout();
@@ -48,10 +51,18 @@ public class AddNewDateLayout {
 
     public void createAddDateLayout() {
 
-        editDate = (Button) addNewDateView.findViewById(R.id.addDate);
         Date date = new Date();
         dateValue = DateUtils.formatDate(date.getTime());
-        editDate.setText(dateValue);
+        
+//        editDate = (Button) addNewDateView.findViewById(R.id.addDate);
+//        editDate.setText(dateValue);
+//        editDate.setOnClickListener(onChangeDate);
+        
+        editDate = (TextView) addNewDateView.findViewById(R.id.addDate);
+//        editDate.setText(dateValue);
+        SpannableString content = new SpannableString(dateValue);
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        editDate.setText(content);
         editDate.setOnClickListener(onChangeDate);
 
         Button save = (Button) addNewDateView.findViewById(R.id.validate);
@@ -97,7 +108,9 @@ public class AddNewDateLayout {
                                               ((DatePicker) custom).getDayOfMonth());
                     }
 
-                    editDate.setText(dateValue);
+                    SpannableString content = new SpannableString(dateValue);
+                    content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+                    editDate.setText(content);
                 }
             });
 

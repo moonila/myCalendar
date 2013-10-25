@@ -1,5 +1,4 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android" 
-    xmlns:local="http://schemas.android.com/apk/res/org.moonila.mycalendar.app">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:local="http://schemas.android.com/apk/res/org.moonila.mycalendar.app">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -24,22 +23,16 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <!-- <style name="testo" parent="@android:style/Widget.DeviceDefault.DatePicker"> -->
-    <!-- <item name="android:textColor">#AEEE00</item> -->
-    <!-- </style> -->
-    <!-- <style name="datePickerThem"> -->
-    <!-- <item name="android:textColor">#AEEE00</item> -->
-    <!-- </style> -->
-
     <style name="MyHolo" parent="android:Theme.Holo.NoActionBar">
         <item name="android:textColor">#AEEE00</item>
         <item name="datePickerStyle">@style/Custom.DatePicker</item>
-        
         <item name="numberPickerInputTextStyle">@style/Custom.NumberPickerInputText</item>
         <item name="numberPickerStyle">@style/Custom.NumberPicker</item>
         <!-- <item name="android:dateTextAppearance">#AEEE00</item> -->
     </style>
-     <style name="Custom"/>
+
+    <style name="Custom" />
+
     <style name="Custom.DatePicker">
         <item name="endYear">2100</item>
         <item name="forceShownState">false</item>
@@ -47,7 +40,8 @@
         <item name="spinnersShown">true</item>
         <item name="startYear">1900</item>
     </style>
-     <style name="Custom.NumberPicker">
+
+    <style name="Custom.NumberPicker">
         <item name="android:fadingEdge">vertical</item>
         <item name="android:fadingEdgeLength">50dip</item>
         <item name="android:layout">@layout/widget_number_picker</item>
@@ -60,7 +54,8 @@
         <item name="selectionDividersDistance">48dip</item>
         <item name="virtualButtonPressedDrawable">?selectableItemBackground</item>
     </style>
-        <style name="Custom.NumberPickerInputText">
+
+    <style name="Custom.NumberPickerInputText">
         <item name="android:background">@null</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingBottom">13sp</item>
