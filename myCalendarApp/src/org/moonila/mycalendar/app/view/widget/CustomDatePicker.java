@@ -96,9 +96,6 @@ public class CustomDatePicker extends FrameLayout {
         setMaxDate(tempDate.getTimeInMillis());
         currentDate.setTimeInMillis(System.currentTimeMillis());
         init(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH), null);
-        // TODO
-        // Reordering a spinners leads them stop, temporarily disabled.
-        // reorderSpinners();
     }
 
     public void setValues() {
@@ -158,14 +155,6 @@ public class CustomDatePicker extends FrameLayout {
     public int getDayOfMonth() {
         return currentDate.get(Calendar.DAY_OF_MONTH);
     }
-
-    // public long getMaxDate() {
-    // return mCalendarView.getMaxDate();
-    // }
-    //
-    // public long getMinDate() {
-    // return mCalendarView.getMinDate();
-    // }
 
     public int getMonth() {
         return currentDate.get(Calendar.MONTH);
@@ -242,35 +231,34 @@ public class CustomDatePicker extends FrameLayout {
         }
     }
 
-//    private void pushSpinner(CustomNumberPicker spinner, int spinnerCount, int i) {
-//        if (spinner.getParent() != null && spinner.getParent() instanceof ViewGroup) {
-//            ViewGroup parent = (ViewGroup) spinner.getParent();
-//            if (parent.getChildAt(i) != spinner) {
-//                parent.removeView(spinner);
-//                parent.addView(spinner);
-//                setImeOptions(spinner, spinnerCount, i);
-//            }
-//        }
-//    }
+    // private void pushSpinner(CustomNumberPicker spinner, int spinnerCount, int i) {
+    // if (spinner.getParent() != null && spinner.getParent() instanceof ViewGroup) {
+    // ViewGroup parent = (ViewGroup) spinner.getParent();
+    // if (parent.getChildAt(i) != spinner) {
+    // parent.removeView(spinner);
+    // parent.addView(spinner);
+    // setImeOptions(spinner, spinnerCount, i);
+    // }
+    // }
+    // }
 
-
-//    private void reorderSpinners() {
-//        char[] order = DateFormat.getDateFormatOrder(getContext());
-//        final int spinnerCount = order.length;
-//        for (int i = 0; i < spinnerCount; i++) {
-//            switch (order[i]) {
-//            case DateFormat.DATE:
-//                pushSpinner(daySpinner, spinnerCount, i);
-//                break;
-//            case DateFormat.MONTH:
-//                pushSpinner(monthSpinner, spinnerCount, i);
-//                break;
-//            case DateFormat.YEAR:
-//                pushSpinner(yearSpinner, spinnerCount, i);
-//                break;
-//            }
-//        }
-//    }
+    // private void reorderSpinners() {
+    // char[] order = DateFormat.getDateFormatOrder(getContext());
+    // final int spinnerCount = order.length;
+    // for (int i = 0; i < spinnerCount; i++) {
+    // switch (order[i]) {
+    // case DateFormat.DATE:
+    // pushSpinner(daySpinner, spinnerCount, i);
+    // break;
+    // case DateFormat.MONTH:
+    // pushSpinner(monthSpinner, spinnerCount, i);
+    // break;
+    // case DateFormat.YEAR:
+    // pushSpinner(yearSpinner, spinnerCount, i);
+    // break;
+    // }
+    // }
+    // }
 
     private void setContentDescriptions() {
         setContentDescription(daySpinner, R.id.increment, R.string.date_picker_increment_day_button);
@@ -300,16 +288,17 @@ public class CustomDatePicker extends FrameLayout {
         monthSpinner.setEnabled(enabled);
         yearSpinner.setEnabled(enabled);
     }
-//
-//    private void setImeOptions(CustomNumberPicker spinner, int spinnerCount, int spinnerIndex) {
-//        final int imeOptions;
-//        if (spinnerIndex < spinnerCount - 1) {
-//            imeOptions = EditorInfo.IME_ACTION_NEXT;
-//        } else {
-//            imeOptions = EditorInfo.IME_ACTION_DONE;
-//        }
-//        spinner.getInputField().setImeOptions(imeOptions);
-//    }
+
+    //
+    // private void setImeOptions(CustomNumberPicker spinner, int spinnerCount, int spinnerIndex) {
+    // final int imeOptions;
+    // if (spinnerIndex < spinnerCount - 1) {
+    // imeOptions = EditorInfo.IME_ACTION_NEXT;
+    // } else {
+    // imeOptions = EditorInfo.IME_ACTION_DONE;
+    // }
+    // spinner.getInputField().setImeOptions(imeOptions);
+    // }
 
     @SuppressWarnings("deprecation")
     public void setLocale(Locale locale) {
