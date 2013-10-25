@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Mon application féminine</string>
+    <string name="app_name">Mon calendrier féminin</string>
     <string name="newDate">Saisir une nouvelle date</string>
     <string name="back">Retour</string>
     <string name="cancel">Annuler</string>

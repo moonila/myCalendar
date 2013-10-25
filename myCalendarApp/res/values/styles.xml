@@ -20,7 +20,7 @@
     </style>
 
     <style name="ButtonStyle">
-        <item name="android:background">@color/blue</item>
+        <item name="android:background">@color/magenta</item>
         <item name="android:gravity">center</item>
     </style>
 
