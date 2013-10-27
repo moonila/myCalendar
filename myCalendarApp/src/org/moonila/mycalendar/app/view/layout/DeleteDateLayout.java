@@ -11,7 +11,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -58,7 +58,7 @@ public class DeleteDateLayout {
 				.findViewById(R.id.deleteOne);
 		deleteOne.setOnClickListener(onSelect);
 
-		Button save = (Button) deleteDateView.findViewById(R.id.validate);
+		ImageButton save = (ImageButton) deleteDateView.findViewById(R.id.validate);
 		save.setOnClickListener(onDelete);
 
 	}

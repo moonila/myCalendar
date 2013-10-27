@@ -19,9 +19,9 @@ import android.text.style.UnderlineSpan;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class AddNewDateLayout {
@@ -53,19 +53,14 @@ public class AddNewDateLayout {
 
         Date date = new Date();
         dateValue = DateUtils.formatDate(date.getTime());
-        
-//        editDate = (Button) addNewDateView.findViewById(R.id.addDate);
-//        editDate.setText(dateValue);
-//        editDate.setOnClickListener(onChangeDate);
-        
+                
         editDate = (TextView) addNewDateView.findViewById(R.id.addDate);
-//        editDate.setText(dateValue);
         SpannableString content = new SpannableString(dateValue);
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         editDate.setText(content);
         editDate.setOnClickListener(onChangeDate);
 
-        Button save = (Button) addNewDateView.findViewById(R.id.validate);
+        ImageButton save = (ImageButton) addNewDateView.findViewById(R.id.validate);
         save.setOnClickListener(onSave);
 
     }
