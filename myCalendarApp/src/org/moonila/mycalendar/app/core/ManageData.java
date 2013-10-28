@@ -10,92 +10,90 @@ import android.content.Context;
 
 public class ManageData {
 
-	private static final long ONE_HOUR = 1000 * 60 * 60;// //1000 millisecondes
-	// * 60 secondes * 60
-	// minutes = 1 heure
+    private static final long ONE_HOUR = 1000 * 60 * 60;// //1000 millisecondes
+    // * 60 secondes * 60
+    // minutes = 1 heure
 
-	private static final long ONE_DAY = ONE_HOUR * 24; // 1 heure * 24 = 1 jour
+    private static final long ONE_DAY = ONE_HOUR * 24; // 1 heure * 24 = 1 jour
 
-	private static Context context;
+    private static Context context;
 
-	private static int currentYear;
+    private static int currentYear;
 
-	private DatabaseHandler db = DatabaseHandler.getInstance(context);
+    private DatabaseHandler db = DatabaseHandler.getInstance(context);
 
-	private static class ManageDataHolder {
-		private final static ManageData instance = new ManageData();
-	}
+    private static class ManageDataHolder {
+        private final static ManageData instance = new ManageData();
+    }
 
-	public static ManageData getInstance(Context context) {
-		ManageData.context = context;
-		currentYear = DateUtils.retrieveCurrentYear();
-		return ManageDataHolder.instance;
-	}
+    public static ManageData getInstance(Context context) {
+        ManageData.context = context;
+        currentYear = DateUtils.retrieveCurrentYear();
+        return ManageDataHolder.instance;
+    }
 
-	public String[] createListYears() {
+    public String[] createListYears() {
 
-		String[] listYears = new String[5];
-		listYears[0] = String.valueOf(currentYear);
-		for (int i = 0; i < 4; i++) {
-			int oldDate = currentYear - (i + 1);
-			listYears[i + 1] = String.valueOf(oldDate);
-		}
-		return listYears;
-	}
+        String[] listYears = new String[5];
+        listYears[0] = String.valueOf(currentYear);
+        for (int i = 0; i < 4; i++) {
+            int oldDate = currentYear - (i + 1);
+            listYears[i + 1] = String.valueOf(oldDate);
+        }
+        return listYears;
+    }
 
-	public long calculAverage(int year) {
+    public long calculAverage(int year) {
 
-		List<FirstDay> allDate = db
-				.getAllDateForCurrentYear(year);
+        List<FirstDay> allDate = db.getAllDateForCurrentYear(year);
 
-		long average = 0;
-		for (int i = 0; i < allDate.size(); i++) {
-			if (i > 0) {
-				average += (allDate.get(i - 1).getDateTimeStamp() - allDate
-						.get(i).getDateTimeStamp());
-			}
-		}
+        long average = 0;
+        for (int i = 0; i < allDate.size(); i++) {
+            if (i > 0) {
+                average += (allDate.get(i - 1).getDateTimeStamp() - allDate.get(i).getDateTimeStamp());
+            }
+        }
 
-		if (allDate.size() > 0) {
-			return (average / allDate.size()) / ONE_DAY;
-		} else {
-			return 0;
-		}
-	}
+        if (allDate.size() > 0) {
+            return (average / allDate.size()) / ONE_DAY;
+        } else {
+            return 0;
+        }
+    }
 
-	public String calculProbablyDate(long average, long lastDateTime) {
+    public String calculProbablyDate(long average, long lastDateTime) {
 
-		long dateProbably = lastDateTime + (average * ONE_DAY);
+        long dateProbably = lastDateTime + (average * ONE_DAY);
 
-		return DateUtils.formatDate(dateProbably);
-	}
+        return DateUtils.formatDate(dateProbably);
+    }
 
-	public FirstDay getLastDate() {
-		return db.getLastDate();
-	}
+    public FirstDay getLastDate() {
+        return db.getLastDate();
+    }
 
-	public List<FirstDay> getAllDateForCurrentYear() {
-		return db.getAllDateForCurrentYear(currentYear);
-	}
+    public List<FirstDay> getAllDateForCurrentYear() {
+        return db.getAllDateForCurrentYear(currentYear);
+    }
 
-	public void deleteAll() {
-		db.deleteAll();
-	}
+    public void deleteAll() {
+        db.deleteAll();
+    }
 
-	public void deleteAllByYear(int year) {
-		List<FirstDay> allDaysWillBeDeleted = db
-				.getAllDateForCurrentYear(year);
-		for (FirstDay day : allDaysWillBeDeleted) {
-			db.deleteDateById(day);
-		}
-	}
+    public void deleteAllByYear(int year) {
+        List<FirstDay> allDaysWillBeDeleted = db.getAllDateForCurrentYear(year);
+        for (FirstDay day : allDaysWillBeDeleted) {
+            db.deleteDateById(day);
+        }
+    }
 
-	public void deleteBySpecificDate(FirstDay firstDay) {
-		db.deleteDateById(firstDay);
-	}
+    public void deleteBySpecificDate(String date) {
+        FirstDay firstDay = db.getDateByDate(date);
+        db.deleteDateById(firstDay);
+    }
 
-	public boolean addDate(FirstDay firstDay) {
-		return db.addDate(firstDay);
-	}
+    public boolean addDate(FirstDay firstDay) {
+        return db.addDate(firstDay);
+    }
 
 }

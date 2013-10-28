@@ -1,129 +1,36 @@
 package org.moonila.mycalendar.app.view.layout;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import org.moonila.mycalendar.app.bean.FirstDay;
 import org.moonila.mycalendar.app.core.ManageData;
-import org.moonila.mycalendar.app.utils.DateUtils;
 import org.moonila.mycalendar.app.view.R;
 import org.moonila.mycalendar.app.view.activity.MyCalendarMainActivity;
-import org.moonila.mycalendar.app.view.widget.CustomDatePicker;
+import org.moonila.mycalendar.app.view.component.CustomDateTextViewLink;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
-import android.widget.DatePicker;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
-public class AddNewDateLayout {
+public class AddNewDateLayout extends CustomLayout {
 
-    private static ManageData manageData;
-
-    private static Context context;
-
-    private static View addNewDateView;
-
-    private static String dateValue;
-
-    private static TextView editDate;
+    private static CustomDateTextViewLink editDate;
 
     private static class AddNewDateLayoutHolder {
         private final static AddNewDateLayout instance = new AddNewDateLayout();
     }
 
-    public static AddNewDateLayout getInstance(Context context, View addNewDateView, ManageData manageData) {
-        AddNewDateLayout.context = context;
-        AddNewDateLayout.manageData = manageData;
-        AddNewDateLayout.addNewDateView = addNewDateView;
+    public static AddNewDateLayout getInstance(Context context, View pageView, ManageData manageData) {
+        init(context, pageView, manageData);
         return AddNewDateLayoutHolder.instance;
     }
 
-    protected boolean itsCustomDatePicker;
-
     public void createAddDateLayout() {
 
-        Date date = new Date();
-        dateValue = DateUtils.formatDate(date.getTime());
-                
-        editDate = (TextView) addNewDateView.findViewById(R.id.addDate);
-        SpannableString content = new SpannableString(dateValue);
-        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-        editDate.setText(content);
-        editDate.setOnClickListener(onChangeDate);
-
-        ImageButton save = (ImageButton) addNewDateView.findViewById(R.id.validate);
+        editDate = (CustomDateTextViewLink) pageView.findViewById(R.id.dateModifLink);
+        ImageButton save = (ImageButton) pageView.findViewById(R.id.validate);
         save.setOnClickListener(onSave);
-
-    }
-
-    private View.OnClickListener onChangeDate = new View.OnClickListener() {
-        public void onClick(View v) {
-
-            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-            itsCustomDatePicker = true;
-            final FrameLayout custom;
-            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.HONEYCOMB) {
-                custom = new CustomDatePicker(context);
-                custom.setOnTouchListener(new OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        ((CustomDatePicker) custom).setValues();
-                        return false;
-                    }
-                });
-            } else {
-                itsCustomDatePicker = false;
-                custom = new DatePicker(context);
-                custom.setOnTouchListener(new OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        ((DatePicker) custom).updateDate(((DatePicker) custom).getYear(),
-                                                         ((DatePicker) custom).getMonth(),
-                                                         ((DatePicker) custom).getDayOfMonth());
-                        return false;
-                    }
-                });
-            }
-            alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, context.getString(R.string.dialogOk), new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    if (AddNewDateLayout.this.itsCustomDatePicker) {
-                        dateValue = ((CustomDatePicker) custom).getValues();
-                    } else {
-                        dateValue = getValues(((DatePicker) custom).getYear(),
-                                              ((DatePicker) custom).getMonth(),
-                                              ((DatePicker) custom).getDayOfMonth());
-                    }
-
-                    SpannableString content = new SpannableString(dateValue);
-                    content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-                    editDate.setText(content);
-                }
-            });
-
-            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, context.getString(R.string.dialogCancel), new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    // Do nothing
-                }
-            });
-
-            alertDialog.setView(custom);
-            alertDialog.show();
-        }
-    };
-
-    public String getValues(int year, int month, int dayOfMonth) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(year, month, dayOfMonth);
-        return DateUtils.formatDate(cal.getTimeInMillis());
 
     }
 
@@ -131,11 +38,15 @@ public class AddNewDateLayout {
         public void onClick(View v) {
             boolean error = false;
             if (v.getId() == R.id.validate) {
-                error = manageData.addDate(new FirstDay(dateValue));
+                error = manageData.addDate(new FirstDay(editDate.getText().toString()));
             }
 
             if (error) {
-                getErrorAlertPopup();
+                createAlertDialog(context,
+                                  context.getString(R.string.dialog_title_error),
+                                  context.getString(R.string.dialog_message_formated_date),
+                                  onClickListener());
+
             } else {
                 // define a new Intent for the second Activity
                 Intent intent = new Intent(context, MyCalendarMainActivity.class);
@@ -146,18 +57,14 @@ public class AddNewDateLayout {
         }
     };
 
-    public static void getErrorAlertPopup() {
-        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setMessage(context.getString(R.string.dialogMessage));
-        alertDialog.setTitle(R.string.dialogTitle);
-
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, context.getString(R.string.dialogOk), new DialogInterface.OnClickListener() {
+    private OnClickListener onClickListener() {
+        OnClickListener clickListener = new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked OK button
             }
-        });
+        };
 
-        alertDialog.show();
+        return clickListener;
     }
 
 }

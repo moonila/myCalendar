@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <include
+        android:id="@+id/validateButton"
+        layout="@layout/component_button_validate" />
+
     <RadioGroup
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -15,13 +19,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="@string/deleteAll" />
+            android:text="@string/delete_all" />
 
         <RadioButton
             android:id="@+id/deleteByDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/deleteByDate" />
+            android:text="@string/delete_by_year" />
 
         <RelativeLayout
             android:id="@+id/deleteByDateLayout"
@@ -42,18 +46,19 @@
             android:id="@+id/deleteOne"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/deleteOne" />
+            android:text="@string/delete_one" />
 
-        <TextView
-            android:id="@+id/deleteOneText"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/deleteByOneDateLayout"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/deleteOne"
-            android:visibility="gone" />
-    </RadioGroup>
+            android:orientation="horizontal"
+            android:visibility="gone" >
 
-    <include
-        android:id="@+id/validateButton"
-        layout="@layout/component_button_validate" />
+            <include
+                android:id="@+id/dateModifLink"
+                layout="@layout/component_text_view" />
+        </LinearLayout>
+    </RadioGroup>
 
 </LinearLayout>

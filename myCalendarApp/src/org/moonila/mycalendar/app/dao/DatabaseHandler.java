@@ -96,6 +96,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return firstDay;
     }
+    
+    public FirstDay getDateByDate(String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        long dateTimeStamp = DateUtils.dateStringToLong(date);
+        Cursor cursor = db.query(TABLE_DATES,
+                                 new String[] { KEY_DATES_ID, KEY_DATE },
+                                 KEY_DATE + "=?",
+                                 new String[] { String.valueOf(dateTimeStamp) },
+                                 null,
+                                 null,
+                                 null,
+                                 null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        FirstDay firstDay = createFirstDayObject(cursor);
+
+        return firstDay;
+    }
 
     public FirstDay getLastDate() {
         String selectQuery = "SELECT * FROM " + TABLE_DATES + " ORDER BY " + KEY_DATE + " DESC LIMIT 1";
@@ -115,6 +134,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
     }
+    
+    
 
     // Getting All mentrus
     public List<FirstDay> getAllDates() {

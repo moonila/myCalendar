@@ -8,22 +8,33 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <include
+            android:id="@+id/validateButton"
+            layout="@layout/component_button_validate" />
+
+        <TextView
+            style="@style/Custom.TextDescriptionStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_date_description" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <TextView
+            style="@style/Custom.TextLabelStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/newDateLabel" />
+            android:text="@string/new_date_label" />
 
-        <TextView
-            android:id="@+id/addDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/empty_string" />
+        <include android:id="@+id/dateModifLink"
+            layout="@layout/component_text_view" />
+       
     </LinearLayout>
-
-    <include
-        android:id="@+id/validateButton"
-        layout="@layout/component_button_validate" />
 
 </LinearLayout>

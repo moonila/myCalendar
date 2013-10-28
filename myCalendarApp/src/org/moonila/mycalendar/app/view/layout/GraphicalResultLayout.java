@@ -20,120 +20,107 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
-public class GraphicalResultLayout {
+public class GraphicalResultLayout extends CustomLayout {
 
-	private static ManageData manageData;
+    private static class GraphicalResultLayoutHolder {
+        private final static GraphicalResultLayout instance = new GraphicalResultLayout();
+    }
 
-	private static Context context;
+    public static GraphicalResultLayout getInstance(Context context, View pageView, ManageData manageData) {
+        init(context, pageView, manageData);
+        return GraphicalResultLayoutHolder.instance;
+    }
 
-	private static View graphicalResultView;
+    public void createGraphicalResultLayout() {
 
-	private static class GraphicalResultLayoutHolder {
-		private final static GraphicalResultLayout instance = new GraphicalResultLayout();
-	}
+        List<FirstDay> allDates = manageData.getAllDateForCurrentYear();
 
-	public static GraphicalResultLayout getInstance(Context context,
-			View graphicalResultView, ManageData manageData) {
-		GraphicalResultLayout.context = context;
-		GraphicalResultLayout.manageData = manageData;
-		GraphicalResultLayout.graphicalResultView = graphicalResultView;
-		return GraphicalResultLayoutHolder.instance;
-	}
+        LinearLayout layout = (LinearLayout) pageView.findViewById(R.id.chart);
 
-	public void createGraphicalResultLayout() {
+        layout.addView(execute(allDates), new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+    }
 
-		List<FirstDay> allDates = manageData.getAllDateForCurrentYear();
+    public GraphicalView execute(List<FirstDay> allDates) {
 
-		LinearLayout layout = (LinearLayout) graphicalResultView
-				.findViewById(R.id.chart);
+        XYMultipleSeriesRenderer renderer = createRenderer();
 
-		layout.addView(execute(allDates), new LayoutParams(
-				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-	}
+        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 
-	public GraphicalView execute(List<FirstDay> allDates) {
+        XYSeriesRenderer r = createSeriesRenderer();
+        renderer.addSeriesRenderer(r);
 
-		XYMultipleSeriesRenderer renderer = createRenderer();
+        XYSeries series = new XYSeries(context.getString(R.string.graphs_legendary));
+        for (int i = 0; i < allDates.size(); i++) {
 
-		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+            // On indique le style de la serie
+            String[] values = allDates.get(i).getDateformated().split("/");
 
-		XYSeriesRenderer r = createSeriesRenderer();
-		renderer.addSeriesRenderer(r);
+            String dayValue = values[0];
 
-		XYSeries series = new XYSeries(
-				context.getString(R.string.graphsLegendary));
-		for (int i = 0; i < allDates.size(); i++) {
+            String monthValue = values[1];
 
-			// On indique le style de la serie
-			String[] values = allDates.get(i).getDateformated().split("/");
+            series.add(i, Double.valueOf(monthValue), Double.valueOf(dayValue));
+        }
 
-			String dayValue = values[0];
+        dataset.addSeries(series);
+        renderer.setYAxisMax(31);
 
-			String monthValue = values[1];
+        return ChartFactory.getLineChartView(context, dataset, renderer);
+    }
 
-			series.add(i, Double.valueOf(monthValue), Double.valueOf(dayValue));
-		}
+    private XYSeriesRenderer createSeriesRenderer() {
+        XYSeriesRenderer r = new XYSeriesRenderer();
+        // r.setColor(Color.MAGENTA);
+        r.setColor(context.getResources().getColor(R.color.magenta));
+        r.setPointStyle(PointStyle.DIAMOND);
+        r.setGradientEnabled(true);
+        r.setGradientStart(1, Color.BLACK);
+        r.setGradientStop(31, Color.BLACK);
+        r.setGradientEnabled(true);
+        return r;
+    }
 
-		dataset.addSeries(series);
-		renderer.setYAxisMax(31);
+    private XYMultipleSeriesRenderer createRenderer() {
+        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
 
-		return ChartFactory.getLineChartView(context, dataset, renderer);
-	}
+        renderer.setBarSpacing(0.5);
+        renderer.setXLabels(0);
+        renderer.setYLabels(10);
+        renderer.setXLabelsColor(Color.BLACK);
+        renderer.setYLabelsColor(0, Color.BLACK);
+        renderer.setMargins(new int[] { 30, 40, 10, 10 });
+        renderer.setYLabelsAlign(Align.RIGHT);
+        renderer.setMarginsColor(Color.WHITE);
+        String[] allMonths = context.getResources().getStringArray(R.array.all_months);
+        for (int i = 0; i < allMonths.length; i++) {
+            renderer.addXTextLabel((i + 1), allMonths[i]);
+        }
 
-	private XYSeriesRenderer createSeriesRenderer() {
-		XYSeriesRenderer r = new XYSeriesRenderer();
-		// r.setColor(Color.MAGENTA);
-		r.setColor(context.getResources().getColor(R.color.magenta));
-		r.setPointStyle(PointStyle.DIAMOND);
-		r.setGradientEnabled(true);
-		r.setGradientStart(1, Color.BLACK);
-		r.setGradientStop(31, Color.BLACK);
-		r.setGradientEnabled(true);
-		return r;
-	}
+        int[] allDays = context.getResources().getIntArray(R.array.all_days);
+        for (int day : allDays) {
+            renderer.addYTextLabel(day, String.valueOf(day));
+        }
 
-	private XYMultipleSeriesRenderer createRenderer() {
-		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+        renderer.setChartTitle(context.getString(R.string.graphs_year_actual));
+        renderer.setXTitle(context.getString(R.string.graphs_x_label));
+        renderer.setYTitle(context.getString(R.string.graphs_y_label));
+        renderer.setXAxisMin(0.5);
+        renderer.setXAxisMax(12.5);
+        renderer.setYAxisMin(0.5);
+        renderer.setYAxisMax(31.5);
 
-		renderer.setBarSpacing(0.5);
-		renderer.setXLabels(0);
-		renderer.setYLabels(10);
-		renderer.setXLabelsColor(Color.BLACK);
-		renderer.setYLabelsColor(0, Color.BLACK);
-		renderer.setMargins(new int[] { 30, 40, 10, 10 });
-		renderer.setYLabelsAlign(Align.RIGHT);
-		renderer.setMarginsColor(Color.WHITE);
-		String[] allMonths = context.getResources().getStringArray(
-				R.array.all_months);
-		for (int i = 0; i < allMonths.length; i++) {
-			renderer.addXTextLabel((i+1), allMonths[i]);
-		}
-
-		int[] allDays = context.getResources().getIntArray(R.array.all_days);
-		for (int day : allDays) {
-			renderer.addYTextLabel(day, String.valueOf(day));
-		}
-
-		renderer.setChartTitle(context.getString(R.string.graphsYearActual));
-		renderer.setXTitle(context.getString(R.string.graphsXLabel));
-		renderer.setYTitle(context.getString(R.string.graphsYLabel));
-		renderer.setXAxisMin(0.5);
-		renderer.setXAxisMax(12.5);
-		renderer.setYAxisMin(0.5);
-		renderer.setYAxisMax(31.5);
-
-		renderer.setAxesColor(Color.GRAY);
-		renderer.setLabelsColor(Color.BLACK);
-		renderer.setApplyBackgroundColor(true);
-		// renderer.setGridColor(Color.RED);
-		// renderer.setShowGrid(true);
-		// renderer.setShowLegend(true);
-		renderer.setShowLabels(true);
-		renderer.setZoomEnabled(false, false);
-		renderer.setPanEnabled(false);
-//		renderer.setShowGridX(true);
-//		renderer.setShowGridY(true);
-//		renderer.setGridColor(Color.BLUE);
-		return renderer;
-	}
+        renderer.setAxesColor(Color.GRAY);
+        renderer.setLabelsColor(Color.BLACK);
+        renderer.setApplyBackgroundColor(true);
+        // renderer.setGridColor(Color.RED);
+        // renderer.setShowGrid(true);
+        // renderer.setShowLegend(true);
+        renderer.setShowLabels(true);
+        renderer.setZoomEnabled(false, false);
+        renderer.setPanEnabled(false);
+        // renderer.setShowGridX(true);
+        // renderer.setShowGridY(true);
+        // renderer.setGridColor(Color.BLUE);
+        return renderer;
+    }
 }

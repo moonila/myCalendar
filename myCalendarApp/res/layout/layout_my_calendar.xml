@@ -18,7 +18,7 @@
             android:layout_marginRight="30dp"
             android:layout_toLeftOf="@+id/deleteAction"
             android:background="@color/white"
-            android:contentDescription="@string/newDateButton"
+            android:contentDescription="@string/empty_string"
             android:src="@drawable/plus_m" />
 
         <ImageButton
@@ -28,7 +28,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:background="@color/white"
-            android:contentDescription="@string/deleteActionButton"
+            android:contentDescription="@string/empty_string"
             android:src="@drawable/moins_m" />
 
         <ImageButton
@@ -39,7 +39,7 @@
             android:layout_marginLeft="30dp"
             android:layout_toRightOf="@+id/deleteAction"
             android:background="@color/white"
-            android:contentDescription="@string/viewGraphButton"
+            android:contentDescription="@string/empty_string"
             android:src="@drawable/graph_m" />
     </RelativeLayout>
 
@@ -50,11 +50,13 @@
         android:orientation="horizontal" >
 
         <TextView
+            style="@style/Custom.TextLabelStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lastDate" />
+            android:text="@string/main_last_date" />
 
         <TextView
+            style="@style/Custom.TextValueStyle"
             android:id="@+id/lastDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -67,11 +69,13 @@
         android:orientation="horizontal" >
 
         <TextView
+            style="@style/Custom.TextLabelStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/probablyDate" />
+            android:text="@string/main_probably_date" />
 
         <TextView
+            style="@style/Custom.TextValueStyle"
             android:id="@+id/probablyDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -84,11 +88,13 @@
         android:orientation="horizontal" >
 
         <TextView
+            style="@style/Custom.TextLabelStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/daysAverage" />
+            android:text="@string/main_days_average" />
 
         <TextView
+            style="@style/Custom.TextValueStyle"
             android:id="@+id/daysAverage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

@@ -47,6 +47,7 @@ public class CustomLayoutInflater extends android.view.LayoutInflater implements
 
         remap(CustomNumberPicker.class);
         remap(CustomDatePicker.class);
+        remap(CustomViewComponent.class);
         remapInternal(CustomNumberPickerEditText.class);
     }
 
