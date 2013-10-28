@@ -15,11 +15,16 @@
     <!-- Alert dialog texts -->
     <string name="dialog_title_error">Erreur</string>
     <string name="dialog_title_warning">Attention</string>
+    <string name="dialog_title_information">Information</string>
     <string name="dialog_ok">OK</string>
+    <string name="dialog_continue">Continuer</string>
     <string name="dialog_cancel">Annuller</string>
     <string name="dialog_message_formated_date">la date doit être du type jj/MM/aaaa</string>
-    <string name="dialog_message_deleted_all_dates">Toutes les dates entrées dans l\'application seront supprimées</string>
-
+    <string name="dialog_message_deleted_all_dates">Toutes les dates entrées dans l\'application seront supprimées définitivement. Etes-vous sûr de vouloir continuer ?</string>
+    <string name="dialog_message_deleted_by_year">Toutes les dates de l\'année %s seront supprimées définitivement. Etes-vous sûr de vouloir continuer ?</string>
+ 	<string name="dialog_message_deleted_no_date">La date n\'a pas pu être supprimée car elle n\'existe pas</string>
+ 	<string name="dialog_message_deleted_one_date">La date %s a bien été supprimée</string>
+    
     <!-- Main view -->
     <string name="main_last_date">Dernières : </string>
     <string name="main_probably_date">Date possible des prochaines : </string>

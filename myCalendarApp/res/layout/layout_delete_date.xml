@@ -22,13 +22,13 @@
             android:text="@string/delete_all" />
 
         <RadioButton
-            android:id="@+id/deleteByDate"
+            android:id="@+id/deleteByYear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/delete_by_year" />
 
         <RelativeLayout
-            android:id="@+id/deleteByDateLayout"
+            android:id="@+id/deleteByYearLayout"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"

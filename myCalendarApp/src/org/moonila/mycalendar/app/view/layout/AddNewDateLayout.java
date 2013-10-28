@@ -7,8 +7,6 @@ import org.moonila.mycalendar.app.view.activity.MyCalendarMainActivity;
 import org.moonila.mycalendar.app.view.component.CustomDateTextViewLink;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -42,10 +40,9 @@ public class AddNewDateLayout extends CustomLayout {
             }
 
             if (error) {
-                createAlertDialog(context,
-                                  context.getString(R.string.dialog_title_error),
+                createAlertDialogWithSingleButton(context.getString(R.string.dialog_title_error),
                                   context.getString(R.string.dialog_message_formated_date),
-                                  onClickListener());
+                                  onDialogClickListener);
 
             } else {
                 // define a new Intent for the second Activity
@@ -57,14 +54,6 @@ public class AddNewDateLayout extends CustomLayout {
         }
     };
 
-    private OnClickListener onClickListener() {
-        OnClickListener clickListener = new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked OK button
-            }
-        };
-
-        return clickListener;
-    }
+    
 
 }

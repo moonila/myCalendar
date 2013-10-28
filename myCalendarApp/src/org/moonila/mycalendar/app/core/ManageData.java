@@ -87,9 +87,15 @@ public class ManageData {
         }
     }
 
-    public void deleteBySpecificDate(String date) {
+    public int deleteBySpecificDate(String date) {
         FirstDay firstDay = db.getDateByDate(date);
-        db.deleteDateById(firstDay);
+        if (firstDay != null) {
+            db.deleteDateById(firstDay);
+            return 1;
+        } else {
+            return 0;
+        }
+
     }
 
     public boolean addDate(FirstDay firstDay) {

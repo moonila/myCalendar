@@ -11,12 +11,11 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 
 public class DeleteDateLayout extends CustomLayout {
 
@@ -41,9 +40,10 @@ public class DeleteDateLayout extends CustomLayout {
         deleteAll.setOnClickListener(onSelect);
         deleteDateViewId = R.id.deleteAll;
 
-        createSpinnerList();
+        final String[] items = manageData.createListYears();
+        createSpinnerList(onItemSelectedListener(items), items, R.id.spinnerSelectedYear);
 
-        RadioButton deleteByDate = (RadioButton) pageView.findViewById(R.id.deleteByDate);
+        RadioButton deleteByDate = (RadioButton) pageView.findViewById(R.id.deleteByYear);
         deleteByDate.setOnClickListener(onSelect);
 
         RadioButton deleteOne = (RadioButton) pageView.findViewById(R.id.deleteOne);
@@ -56,11 +56,9 @@ public class DeleteDateLayout extends CustomLayout {
 
     }
 
-    private void createSpinnerList() {
-        final String[] items = manageData.createListYears();
+    private OnItemSelectedListener onItemSelectedListener(final String[] items) {
 
-        Spinner spin = (Spinner) pageView.findViewById(R.id.spinnerSelectedYear);
-        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> arg0, View v, int position, long id) {
@@ -71,11 +69,8 @@ public class DeleteDateLayout extends CustomLayout {
             public void onNothingSelected(AdapterView<?> arg0) {
                 yearSelected = items[0];
             }
-        });
-        ArrayAdapter<String> aa = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, items);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spin.setAdapter(aa);
-
+        };
+        return itemSelectedListener;
     }
 
     private View.OnClickListener onDelete = new View.OnClickListener() {
@@ -83,18 +78,25 @@ public class DeleteDateLayout extends CustomLayout {
 
             if (v.getId() == R.id.validate) {
                 if (deleteDateViewId == R.id.deleteAll) {
-                    createAlertDialog(context,
-                                      context.getString(R.string.dialog_title_warning),
-                                      context.getString(R.string.dialog_message_deleted_all_dates),
-                                      onClickListener());
-                } else if (deleteDateViewId == R.id.deleteByDate) {
-                    manageData.deleteAllByYear(Integer.valueOf(yearSelected));
-                    Intent intent = new Intent(context, MyCalendarMainActivity.class);
-                    context.startActivity(intent);
+                    createAlertDialogWithCancelButton(context.getString(R.string.dialog_title_warning),
+                                                      context.getString(R.string.dialog_message_deleted_all_dates),
+                                                      onDialogClickListenerForDeleteAll);
+                } else if (deleteDateViewId == R.id.deleteByYear) {
+                    createAlertDialogWithCancelButton(context.getString(R.string.dialog_title_warning),
+                                                      String.format(context.getString(R.string.dialog_message_deleted_by_year), yearSelected),
+                                                      onDialogClickListenerForDeleteByYear);
                 } else if (deleteDateViewId == R.id.deleteOne) {
-                    manageData.deleteBySpecificDate(editDate.getText().toString());
-                    Intent intent = new Intent(context, MyCalendarMainActivity.class);
-                    context.startActivity(intent);
+                    int numberDateToBeDeleted = manageData.deleteBySpecificDate(editDate.getText().toString());
+                    if (numberDateToBeDeleted == 0) {
+                        createAlertDialogWithSingleButton(context.getString(R.string.dialog_title_information),
+                                                          context.getString(R.string.dialog_message_deleted_no_date),
+                                                          onDialogClickListenerWithReturnToMainView);
+                    } else {
+                        createAlertDialogWithSingleButton(context.getString(R.string.dialog_title_information),
+                                                          String.format(context.getString(R.string.dialog_message_deleted_one_date), editDate
+                                                                  .getText().toString()),
+                                                          onDialogClickListenerWithReturnToMainView);
+                    }
                 } else {
                     Intent intent = new Intent(context, MyCalendarMainActivity.class);
                     // start the second Activity
@@ -104,28 +106,31 @@ public class DeleteDateLayout extends CustomLayout {
         }
     };
 
-    private OnClickListener onClickListener() {
-        OnClickListener clickListener = new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                manageData.deleteAll();
+    private OnClickListener onDialogClickListenerForDeleteAll = new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int id) {
+            manageData.deleteAll();
+            Intent intent = new Intent(context, MyCalendarMainActivity.class);
+            context.startActivity(intent);
+        }
+    };
 
-                Intent intent = new Intent(context, MyCalendarMainActivity.class);
-                context.startActivity(intent);
-            }
-        };
-
-        return clickListener;
-    }
+    private OnClickListener onDialogClickListenerForDeleteByYear = new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int id) {
+            manageData.deleteAllByYear(Integer.valueOf(yearSelected));
+            Intent intent = new Intent(context, MyCalendarMainActivity.class);
+            context.startActivity(intent);
+        }
+    };
 
     private View.OnClickListener onSelect = new View.OnClickListener() {
         public void onClick(View v) {
-            RelativeLayout deleteByDateLayout = (RelativeLayout) pageView.findViewById(R.id.deleteByDateLayout);
+            RelativeLayout deleteByDateLayout = (RelativeLayout) pageView.findViewById(R.id.deleteByYearLayout);
             LinearLayout txtView2 = (LinearLayout) pageView.findViewById(R.id.deleteByOneDateLayout);
             deleteDateViewId = v.getId();
             if (deleteDateViewId == R.id.deleteAll) {
                 deleteByDateLayout.setVisibility(View.GONE);
                 txtView2.setVisibility(View.GONE);
-            } else if (deleteDateViewId == R.id.deleteByDate) {
+            } else if (deleteDateViewId == R.id.deleteByYear) {
                 deleteByDateLayout.setVisibility(View.VISIBLE);
                 txtView2.setVisibility(View.GONE);
             } else if (deleteDateViewId == R.id.deleteOne) {
@@ -133,7 +138,6 @@ public class DeleteDateLayout extends CustomLayout {
                 txtView2.setVisibility(View.VISIBLE);
             } else {
                 Intent intent = new Intent(context, MyCalendarMainActivity.class);
-
                 // start the second Activity
                 context.startActivity(intent);
             }

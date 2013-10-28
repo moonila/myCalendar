@@ -77,26 +77,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    // Getting single mentrus
-    public FirstDay getDate(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_DATES,
-                                 new String[] { KEY_DATES_ID, KEY_DATE },
-                                 KEY_DATES_ID + "=?",
-                                 new String[] { String.valueOf(id) },
-                                 null,
-                                 null,
-                                 null,
-                                 null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-        }
-        FirstDay firstDay = createFirstDayObject(cursor);
-
-        return firstDay;
-    }
-    
     public FirstDay getDateByDate(String date) {
         SQLiteDatabase db = this.getReadableDatabase();
         long dateTimeStamp = DateUtils.dateStringToLong(date);
@@ -111,9 +91,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor != null) {
             cursor.moveToFirst();
         }
-        FirstDay firstDay = createFirstDayObject(cursor);
 
-        return firstDay;
+        return createFirstDayObject(cursor);
     }
 
     public FirstDay getLastDate() {
@@ -126,16 +105,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         }
 
-        if (cursor.getCount() > 0) {
-            FirstDay firstDay = createFirstDayObject(cursor);
-            return firstDay;
-        } else {
-            return null;
-        }
+        return createFirstDayObject(cursor);
 
     }
-    
-    
 
     // Getting All mentrus
     public List<FirstDay> getAllDates() {
@@ -207,9 +179,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 FirstDay firstDay = createFirstDayObject(cursor);
-
                 // Adding dates to list
-                allDates.add(firstDay);
+                if (firstDay != null) {
+                    allDates.add(firstDay);
+                }
             } while (cursor.moveToNext());
         }
         return allDates;
@@ -217,12 +190,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private FirstDay createFirstDayObject(Cursor cursor) {
 
-        long dateTimeStamp = Long.parseLong(cursor.getString(1));
+        if (cursor.getCount() > 0) {
+            long dateTimeStamp = Long.parseLong(cursor.getString(1));
 
-        FirstDay firstDay = new FirstDay(Integer.parseInt(cursor.getString(0)), dateTimeStamp);
-        firstDay.setDateformated(DateUtils.formatDate(dateTimeStamp));
+            FirstDay firstDay = new FirstDay(Integer.parseInt(cursor.getString(0)), dateTimeStamp);
+            firstDay.setDateformated(DateUtils.formatDate(dateTimeStamp));
 
-        return firstDay;
+            return firstDay;
+        }
+
+        return null;
+
     }
 
     private String createQueryBetweenDate(String year) {
