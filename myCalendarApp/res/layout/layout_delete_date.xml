@@ -3,6 +3,7 @@
     android:id="@+id/delete_date_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey_light"
     android:orientation="vertical" >
 
     <include
@@ -16,6 +17,7 @@
 
         <RadioButton
             android:id="@+id/deleteAll"
+            style="@style/Custom.TextSpinnerStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
@@ -23,6 +25,7 @@
 
         <RadioButton
             android:id="@+id/deleteByYear"
+            style="@style/Custom.TextSpinnerStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/delete_by_year" />
@@ -44,6 +47,7 @@
 
         <RadioButton
             android:id="@+id/deleteOne"
+            style="@style/Custom.TextSpinnerStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/delete_one" />
