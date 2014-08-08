@@ -55,7 +55,8 @@ public class ManageData {
         }
 
         if (allDate.size() > 0) {
-            return (average / allDate.size()) / ONE_DAY;
+        	int days = allDate.size() - 1;
+            return (average / days) / ONE_DAY;
         } else {
             return 0;
         }

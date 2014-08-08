@@ -92,6 +92,7 @@ public class MyCalendarMainActivity extends Activity {
 
 			// start the second Activity
 			startActivity(intent);
+			finish();
 		}
 	};
 }

@@ -62,6 +62,8 @@ public class MyCalendarActionActivity extends Activity {
 
 			// start the second Activity
 			startActivity(intent);
+			
+			finish();
 		}
 	};
 
