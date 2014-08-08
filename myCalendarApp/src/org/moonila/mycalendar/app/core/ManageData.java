@@ -42,7 +42,7 @@ public class ManageData {
         }
         return listYears;
     }
-
+        
     public long calculAverage(int year) {
 
         List<FirstDay> allDate = db.getAllDateForCurrentYear(year);
@@ -55,8 +55,13 @@ public class ManageData {
         }
 
         if (allDate.size() > 0) {
-        	int days = allDate.size() - 1;
-            return (average / days) / ONE_DAY;
+        	if(allDate.size() == 1){
+        		return 24;
+        	}else {
+        		int days = allDate.size() - 1;
+                return (average / days) / ONE_DAY;
+        	}
+        	
         } else {
             return 0;
         }
@@ -102,5 +107,14 @@ public class ManageData {
     public boolean addDate(FirstDay firstDay) {
         return db.addDate(firstDay);
     }
+
+	public String[] createListDates() {
+		List<FirstDay> allDates = db.getAllDates();
+    	String[] listAllDates = new String[allDates.size()];
+    	for(int i =0; i<allDates.size();i++){
+    		listAllDates[i]=allDates.get(i).getDateformated();
+    	}    	
+    	return listAllDates;
+	}
 
 }

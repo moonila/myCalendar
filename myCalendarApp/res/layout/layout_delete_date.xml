@@ -51,18 +51,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/delete_one" />
-
-        <LinearLayout
+                   
+             <RelativeLayout
             android:id="@+id/deleteByOneDateLayout"
-            android:layout_width="fill_parent"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
             android:orientation="horizontal"
             android:visibility="gone" >
 
-            <include
-                android:id="@+id/dateModifLink"
-                layout="@layout/component_text_view" />
-        </LinearLayout>
+            <Spinner
+                android:id="@+id/spinnerSelectedOneDate"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="true" />
+        </RelativeLayout>
     </RadioGroup>
-
 </LinearLayout>

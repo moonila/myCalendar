@@ -21,16 +21,6 @@ public class MyCalendarMainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_my_calendar);
 
-		// remove all data
-		// manageData.deleteAll();
-		// // Inserting Contacts
-		// Log.d("Insert: ", "Inserting ..");
-		// manageData.addDate(new FirstDay("18/03/2013"));
-		// manageData.addDate(new FirstDay("18/06/2013"));
-		// manageData.addDate(new FirstDay("18/07/2013"));
-		// manageData.addDate(new FirstDay("18/04/2013"));
-		// manageData.addDate(new FirstDay("18/02/2013"));
-
 		FirstDay firstDay = manageData.getLastDate();
 
 		if (firstDay == null) {

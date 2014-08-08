@@ -3,7 +3,6 @@ package org.moonila.mycalendar.app.view.layout;
 import org.moonila.mycalendar.app.core.ManageData;
 import org.moonila.mycalendar.app.view.R;
 import org.moonila.mycalendar.app.view.activity.MyCalendarMainActivity;
-import org.moonila.mycalendar.app.view.component.CustomDateTextViewLink;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 
@@ -21,9 +19,9 @@ public class DeleteDateLayout extends CustomLayout {
 
     private static int deleteDateViewId;
 
-    private static CustomDateTextViewLink editDate;
-
     private String yearSelected;
+    
+    private String dateSelected;
 
     private static class DeleteDateLayoutHolder {
         private final static DeleteDateLayout instance = new DeleteDateLayout();
@@ -40,31 +38,29 @@ public class DeleteDateLayout extends CustomLayout {
         deleteAll.setOnClickListener(onSelect);
         deleteDateViewId = R.id.deleteAll;
 
-        final String[] items = manageData.createListYears();
-        createSpinnerList(onItemSelectedListener(items), items, R.id.spinnerSelectedYear);
+        final String[] itemsYears = manageData.createListYears();
+        createSpinnerList(onItemSelectedListenerForYear(itemsYears), itemsYears, R.id.spinnerSelectedYear);
 
         RadioButton deleteByDate = (RadioButton) pageView.findViewById(R.id.deleteByYear);
         deleteByDate.setOnClickListener(onSelect);
 
+        final String[] itemsDates = manageData.createListDates();
+        createSpinnerList(onItemSelectedListenerForDate(itemsDates), itemsDates, R.id.spinnerSelectedOneDate);
+        
         RadioButton deleteOne = (RadioButton) pageView.findViewById(R.id.deleteOne);
         deleteOne.setOnClickListener(onSelect);
-
-        editDate = (CustomDateTextViewLink) pageView.findViewById(R.id.dateModifLink);
 
         ImageButton save = (ImageButton) pageView.findViewById(R.id.validate);
         save.setOnClickListener(onDelete);
 
     }
 
-    private OnItemSelectedListener onItemSelectedListener(final String[] items) {
-
+    private OnItemSelectedListener onItemSelectedListenerForYear(final String[] items) {
         OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
-
             @Override
             public void onItemSelected(AdapterView<?> arg0, View v, int position, long id) {
                 yearSelected = items[position];
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 yearSelected = items[0];
@@ -72,6 +68,21 @@ public class DeleteDateLayout extends CustomLayout {
         };
         return itemSelectedListener;
     }
+    
+    private OnItemSelectedListener onItemSelectedListenerForDate(final String[] items) {
+        OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View v, int position, long id) {
+            	dateSelected = items[position];
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            	dateSelected = items[0];
+            }
+        };
+        return itemSelectedListener;
+    }
+    
 
     private View.OnClickListener onDelete = new View.OnClickListener() {
         public void onClick(View v) {
@@ -86,17 +97,10 @@ public class DeleteDateLayout extends CustomLayout {
                                                       String.format(context.getString(R.string.dialog_message_deleted_by_year), yearSelected),
                                                       onDialogClickListenerForDeleteByYear);
                 } else if (deleteDateViewId == R.id.deleteOne) {
-                    int numberDateToBeDeleted = manageData.deleteBySpecificDate(editDate.getText().toString());
-                    if (numberDateToBeDeleted == 0) {
-                        createAlertDialogWithSingleButton(context.getString(R.string.dialog_title_information),
-                                                          context.getString(R.string.dialog_message_deleted_no_date),
-                                                          onDialogClickListenerWithReturnToMainView);
-                    } else {
-                        createAlertDialogWithSingleButton(context.getString(R.string.dialog_title_information),
-                                                          String.format(context.getString(R.string.dialog_message_deleted_one_date), editDate
-                                                                  .getText().toString()),
-                                                          onDialogClickListenerWithReturnToMainView);
-                    }
+                	 createAlertDialogWithSingleButton(context.getString(R.string.dialog_title_information),
+                             String.format(context.getString(R.string.dialog_message_deleted_one_date), dateSelected),
+                                     onDialogClickListenerForDeleteByOneDate);
+                    
                 } else {
                     Intent intent = new Intent(context, MyCalendarMainActivity.class);
                     // start the second Activity
@@ -121,11 +125,19 @@ public class DeleteDateLayout extends CustomLayout {
             context.startActivity(intent);
         }
     };
+    
+    private OnClickListener onDialogClickListenerForDeleteByOneDate = new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int id) {
+        	manageData.deleteBySpecificDate(dateSelected);
+            Intent intent = new Intent(context, MyCalendarMainActivity.class);
+            context.startActivity(intent);
+        }
+    };
 
     private View.OnClickListener onSelect = new View.OnClickListener() {
         public void onClick(View v) {
             RelativeLayout deleteByDateLayout = (RelativeLayout) pageView.findViewById(R.id.deleteByYearLayout);
-            LinearLayout txtView2 = (LinearLayout) pageView.findViewById(R.id.deleteByOneDateLayout);
+            RelativeLayout txtView2 = (RelativeLayout) pageView.findViewById(R.id.deleteByOneDateLayout);
             deleteDateViewId = v.getId();
             if (deleteDateViewId == R.id.deleteAll) {
                 deleteByDateLayout.setVisibility(View.GONE);
